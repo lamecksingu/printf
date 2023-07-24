@@ -35,12 +35,13 @@ int print_binary(unsigned int num)
 		buffer[index--] = (num & 1) ? '1' : '0';
 		num >>= 1;/*right shift the number to get the next bit*/
 	}
-	while (buffer)
+	index++;
+	while (buffer[index])
 	{
-		printf("%c\n", buffer[index++]);
+		_printf("%c\n", buffer[index++]);
 	}
 	/*print the binary representation*/
-	count = print_string(buffer);
+	count = num_bits - index - 1;/*compute count*/
 	/*free allocated memory*/
 	free(buffer);
 	return (count);
