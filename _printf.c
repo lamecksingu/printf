@@ -49,6 +49,9 @@ int _printf(const char *format, ...)
 				case 'X':
 					count += print_hexadecimal(va_arg(args, unsigned int), 1);
 					break;
+				case 'S':
+					count += print_non_printable(va_arg(args, const char*));
+					break;
 				default:
 					count += print_char('%');
 					count += print_char(*format);
