@@ -1,31 +1,6 @@
 #include "main.h"
 #include <stdarg.h>
 /**
- * print_char - helper function to print a single char
- * @c: the character to be printed
- * Return: printed character at stdout
- */
-int print_char(char c)
-{
-	return (_putchar(c));
-}
-/**
- * print_string - helper function to print a string to stdout
- * @str: string to be printed
- * Return: printed string to stdout
- */
-int print_string(const char *str)
-{
-	int count = 0;
-
-	while (*str)
-	{
-		count += _putchar(*str);
-		str++;
-	}
-	return (count);
-}
-/**
  * _printf - a function that produces output according to a format
  * @format: the format with character string
  * Return: the number of character printed
@@ -60,7 +35,19 @@ int _printf(const char *format, ...)
 					count += print_integer(va_arg(args, int));
 					break;
 				case 'b':
-					count =+ print_binary(va_arg(args, unsigned int));
+					count += print_binary(va_arg(args, unsigned int));
+					break;
+				case 'u':
+					count += print_unsigned(va_arg(args, unsigned int));
+					break;
+				case 'o':
+					count += print_octal(va_arg(args, unsigned int));
+					break;
+				case 'x':
+					count += print_hexadecimal(va_arg(args, unsigned int), 0);
+					break;
+				case 'X':
+					count += print_hexadecimal(va_arg(args, unsigned int), 1);
 					break;
 				default:
 					count += print_char('%');
