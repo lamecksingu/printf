@@ -9,5 +9,6 @@ int print_binary(unsigned int num);
 int print_unsigned(unsigned int num);
 int print_octal(unsigned int num);
 int print_hexadecimal(unsigned int num, int uppercase);
+int print_non_printable(const char *str);
 
 #endif
