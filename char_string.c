@@ -1,4 +1,5 @@
 #include "main.h"
+#include <unistd.h>
 /**
  * print_char - helper function to print a single character
  * @c: a character to be printed
@@ -6,7 +7,7 @@
  */
 int print_char(char c)
 {
-	return (_putchar(c));
+	return (write(1, &c, 1));
 }
 
 /**
@@ -20,7 +21,7 @@ int print_string(const char *str)
 
 	while (*str)
 	{
-		count += _putchar(*str);
+		count += write(1, str, 1);
 		str++;
 	}
 	return (count);
