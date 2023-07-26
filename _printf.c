@@ -3,34 +3,66 @@
 /**
  * _printf - a function that produces output according to a format
  * @format: the format with character string
- *Return: A total count of the characters printed
+ * Return: the number of character printed
+ * excluding the NULL byte
  */
 int _printf(const char *format, ...)
 {
-	int printed_chars;
-	conver_t f_list[] = {
-		{"c", print_char},
-		{"s", print_string},
-		{"%", print_percent},
-		{"d", print_integer},
-		{"i", print_integer},
-		{"b", print_binary},
-		{"r", print_reversed},
-		{"R", rot13},
-		{"u", unsigned_integer},
-		{"o", print_octal},
-		{"x", print_hex},
-		{"X", print_heX},
-		{NULL, NULL}
-	};
-	va_list arg_list;
+	int count = 0;
+	va_list args;
 
-	if (format == NULL)
-		return (-1);
+	va_start(args, format);
 
-	va_start(arg_list, format);
-	/*Calling parser function*/
-	printed_chars = parser(format, f_list, arg_list);
-	va_end(arg_list);
-	return (printed_chars);
+	while (*format)
+	{
+		if (*format == '%')
+		{
+			format++; /*move next*/
+			/*handle conversion specifiers*/
+			switch (*format)
+			{
+				case 'c':
+					count += print_char(va_arg(args, int));
+					break;
+				case 's':
+					count += print_string(va_arg(args, const char *));
+					break;
+				case '%':
+					count += print_char('%');
+					break;
+				case 'd':
+				case 'i':
+					count += print_integer(va_arg(args, int));
+					break;
+				case 'b':
+					count += print_binary(va_arg(args, unsigned int));
+					break;
+				case 'u':
+					count += print_unsigned(va_arg(args, unsigned int));
+					break;
+				case 'o':
+					count += print_octal(va_arg(args, unsigned int));
+					break;
+				case 'x':
+					count += print_hexadecimal(va_arg(args, unsigned int), 0);
+					break;
+				case 'X':
+					count += print_hexadecimal(va_arg(args, unsigned int), 1);
+					break;
+				case 'S':
+					count += print_non_printable(va_arg(args, const char*));
+					break;
+				default:
+					count += print_char('%');
+					count += print_char(*format);
+			}
+		} else
+		{
+			/*regular character print as it is*/
+			count += print_char(*format);
+		}
+		format++; /*move to the next char*/
+	}
+	va_end(args);
+	return (count);
 }
