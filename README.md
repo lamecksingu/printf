@@ -1,21 +1,33 @@
 0x11. C - printf
 Project aimed to write our own printf function
+This is a simple implementation of printf function that formats and prints data
+
 Contributors to this project are:
 1. Lameck Singu
 2. Perpetua Otieno
 
-Task 0:
-Write a function that produces output according to a format.
+DESCRIPTION
 
-Prototype: int _printf(const char *format, ...);
-Returns: the number of characters printed (excluding the null byte used to end output to strings)
-write output to stdout, the standard output stream
-format is a character string. The format string is composed of zero or more directives. See man 3 printf for more detail. You need to handle the following conversion specifiers:
-c
-s
-%
-You don’t have to reproduce the buffer handling of the C library printf function
-You don’t have to handle the flag characters
-You don’t have to handle field width
-You don’t have to handle precision
-You don’t have to handle the length modifiers
+The _printf() function produces output according to a format which is described below. This function write its output to the stdout, the standard output stream. Returns the count of printed characters when the function is successful and -1 when the function fails.
+
+The available convertion specifiers are:
+
+%c: Prints a single character.
+%s: Prints a string of characters.
+%d: Prints integers.
+%i: Prints integers.
+%b: Prints the binary representation of an unsigned decimal.
+%u: Prints unsigned integers
+%x: Prints the hexadecial representation of an unsigned decimal in lowercase letters
+%X:Prints the hexadecial representation of an unsigned decimal in uppercase letters
+%r: Prints a reversed string
+%R: Prints the Rot13 interpretation of a string
+
+Authorized functions and macros
+write (man 2 write)
+malloc (man 3 malloc)
+free (man 3 free)
+va_start (man 3 va_start)
+va_end (man 3 va_end)
+va_copy (man 3 va_copy)
+va_arg (man 3 va_arg)
