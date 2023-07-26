@@ -52,6 +52,9 @@ int _printf(const char *format, ...)
 				case 'S':
 					count += print_non_printable(va_arg(args, const char*));
 					break;
+				case 'p':
+					count += print_pointer(va_arg(args, const void*));
+					break;
 				default:
 					count += print_char('%');
 					count += print_char(*format);
