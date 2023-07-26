@@ -1,43 +1,47 @@
 #include "main.h"
-#include <stdio.h>
-int hex_check(int, char);
-
+#include <stdlib.h>
+#include <stddef.h>
 /**
- * print_binary - Converts a number from base 10 to binary
- * @list: List of arguments passed to this function
- * Return: The length of the number printed
+ * print_binary - converts unsigned int to binary
+ * @num: the unsigned int to binary
+ * Return: binary number
  */
-int print_binary(va_list list)
+int print_binary(unsigned int num)
 {
-	unsigned int num;
-	int i, len;
-	char *str;
-	char *rev_str;
-
-	num = va_arg(list, unsigned int);
+	int num_bits, count, index;
+	char *buffer;
+	/*handle the case when number is 0*/
 	if (num == 0)
-		return (_write_char('0'));
-	if (num < 1)
-		return (-1);
-	len = base_len(num, 2);
-	str = malloc(sizeof(char) * len + 1);
-	if (str == NULL)
-		return (-1);
-
-	for (i = 0; num > 0; i++)
 	{
-		if (num % 2 == 0)
-			str[i] = '0';
-		else
-			str[i] = '1';
-		num = num / 2;
+		return (_putchar('0'));
 	}
-	str[i] = '\0';
-	rev_str = rev_string(str);
-	if (rev_str == NULL)
-		return (-1);
-	write_base(rev_str);
-	free(str);
-	free(rev_str);
-	return (len);
+	/*determine the number of bits needed to represent the number*/
+	num_bits = sizeof(num) * 8; /*8 bits per byte*/
+	/*allocate memory for the buffer to store binary representation*/
+	buffer = malloc(num_bits + 1); /*add 1 for null terminator*/
+	if (buffer == NULL)
+	{
+		return (-1);/*memory allocation fails*/
+	}
+	/*null-terminate buffer*/
+	buffer[num_bits] = '\0';
+
+	/*perform binary conversion*/
+	index = num_bits - 1;/*start from last index of the buffer*/
+	while (num > 0)
+	{
+		/*store 1 or 0 in the buffer based on the rightmost bit*/
+		buffer[index--] = (num & 1) ? '1' : '0';
+		num >>= 1;/*right shift the number to get the next bit*/
+	}
+	index++;
+	while (buffer[index])
+	{
+		_printf("%c\n", buffer[index++]);
+	}
+	/*print the binary representation*/
+	count = num_bits - index - 1;/*compute count*/
+	/*free allocated memory*/
+	free(buffer);
+	return (count);
 }
