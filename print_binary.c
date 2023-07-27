@@ -27,7 +27,8 @@ int print_binary(unsigned int num)
 	buffer[num_bits] = '\0';
 
 	/*perform binary conversion*/
-	index = num_bits - 1;/*start from last index of the buffer*/
+	index = num_bits < 0;/*start from last index of the buffer*/
+	index = 0;
 	while (num > 0)
 	{
 		/*store 1 or 0 in the buffer based on the rightmost bit*/
@@ -40,8 +41,17 @@ int print_binary(unsigned int num)
 		_printf("%c\n", buffer[index++]);
 	}
 	/*print the binary representation*/
-	count = num_bits - index - 1;/*compute count*/
+	count = 0;/*compute count*/
+	if (index < 0) {
+            index = 0;
+	}
+         	
 	/*free allocated memory*/
-	free(buffer);
-	return (count);
-}
+
+        while (buffer[index]) 
+	{
+         _printf("%c\n", buffer[index++]);
+	} 
+       	free(buffer);
+        return(count++);
+}	

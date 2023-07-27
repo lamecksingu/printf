@@ -1,4 +1,5 @@
 #include "main.h"
+#include <stdlib.h>
 /**
  * print_unsigned - helper function to print unsigned integer
  * @num: the number to be printed as unsigned integer
@@ -32,13 +33,13 @@ int print_unsigned(unsigned int num)
 /**
  * print_octal - helper function to convert unsigned int
  * to its octal representation
- * @num: number to be converted
+ *  @num: number to be converted
  * Return: count of numbers printed
  */
 int print_octal(unsigned int num)
 {
 	int index, count;
-	char buffer[2];
+	char buffer[12];
 
 	if (num == 0)
 	{
@@ -50,8 +51,8 @@ int print_octal(unsigned int num)
 	{
 		/*take the last 3bits(octal) and convert to its character represenation*/
 		buffer[index++] = '0' + (num & 7);
-		/*right shift by 3 bits to get the next octal*/
-		num  >>= 3;
+		/*right shift by 8 bits to get the next octal*/
+		num  >>= 8;
 	}
 
 	count = 0;
